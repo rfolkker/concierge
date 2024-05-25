@@ -41,8 +41,9 @@ if os.path.isfile(".env"):
     with open(".env") as f:
         for line in f:
             stripped = line.strip()
-            if stripped.startswith("DOCKER_VOLUME_DIRECTORY="):
-                concierge_root = stripped.replace("DOCKER_VOLUME_DIRECTORY=", "")
+            if stripped.startswith("DOCKER_VOLUME_DIRECTORY"):
+                replaced=f"{stripped.split('=')[0]}="
+                concierge_root = stripped.replace(replaced, "").strip()
                 break
 
     # if the Concierge docker directory is configured, we take that to mean it has previously been installed
